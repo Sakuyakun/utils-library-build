@@ -1,7 +1,7 @@
 const path = require("path");
 const webpack = require("webpack");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
-const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+// const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 const ROOT_PATH = path.resolve(__dirname)
 const APP_PATH = path.resolve(ROOT_PATH, 'src')
@@ -44,7 +44,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new BundleAnalyzerPlugin(),
+    // new BundleAnalyzerPlugin(),
     new UglifyJSPlugin({
       compress: {
         warnings: false,
