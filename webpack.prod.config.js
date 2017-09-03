@@ -7,21 +7,17 @@ const ROOT_PATH = path.resolve(__dirname)
 const APP_PATH = path.resolve(ROOT_PATH, 'src')
 const BUILD_PATH = path.resolve(ROOT_PATH, "lib")
 
-const MODULE_FILENAME = 'demoModule.js'
-const LIBRARY = 'demoModule'
-
 module.exports = {
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.jsx']
   },
   entry: {
-    app: './src/index.js'
+    app: './src/component/index.js',
+    vendor :['react','react-dom']
   },
   output: {
     path: BUILD_PATH,
-    filename: MODULE_FILENAME,
-    library: LIBRARY,
-    libraryTarget: 'umd'
+    filename: '[name].jsx'
   },
   module: {
     rules: [
@@ -45,14 +41,20 @@ module.exports = {
   },
   plugins: [
     // new BundleAnalyzerPlugin(),
-    new UglifyJSPlugin({
-      compress: {
-        warnings: false,
-        drop_console: true,
-        pure_funcs: ['console.log']
-      },
-      beautify: false,
-      sourceMap: false
-    }),
+    // new UglifyJSPlugin({
+    //   compress: {
+    //     warnings: false,
+    //     drop_console: true,
+    //     pure_funcs: ['console.log']
+    //   },
+    //   beautify: false,
+    //   sourceMap: false
+    // }),
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'vendor',
+      minChunks: module => {
+        return module.resource && /node_modules/.test(module.resource)
+      }
+    })
   ]
 }

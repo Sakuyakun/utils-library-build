@@ -9,10 +9,10 @@ const MODULE_FILENAME = 'demoModule.js'
 
 module.exports = {
   resolve: {
-    extensions: ['.js']
+    extensions: ['.js', '.jsx']
   },
   entry: {
-    app: './src/index.js'
+    app: './src/entry.jsx'
   },
   output: {
     path: BUILD_PATH,
@@ -23,7 +23,7 @@ module.exports = {
     rules: [
       {
         loader: "eslint-loader",
-        test: /\.(js)$/,
+        test: /\.(js|jsx)$/,
         enforce: "pre",
         exclude: /node_modules/,
         options: {
@@ -31,7 +31,7 @@ module.exports = {
         }
       },
       {
-        test: /\.(js)$/,
+        test: /\.(js|jsx)$/,
         include: APP_PATH,
         use: {
           loader: "babel-loader?cacheDirectory=true",
